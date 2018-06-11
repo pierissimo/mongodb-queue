@@ -133,7 +133,7 @@ Queue.prototype.get = function(opts, callback) {
             ack     : msg.ack,
             payload : msg.payload,
             tries   : msg.tries,
-        })
+        });
         // if we have a deadQueue, then check the tries, else don't
         if ( self.deadQueue ) {
             // check the tries
@@ -142,7 +142,6 @@ Queue.prototype.get = function(opts, callback) {
                 // 1) add this message to the deadQueue
                 // 2) ack this message from the regular queue
                 // 3) call ourself to return a new message (if exists)
-                // adding 
                 self.deadQueue.add(msg, function(err) {
                     if (err) return callback(err)
                     self.ack(msg.ack, function(err) {
